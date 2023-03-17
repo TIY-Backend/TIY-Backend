@@ -60,7 +60,7 @@ router.post(
 
       await user.save();
 
-      res.status(500).json(user);
+      res.status(200).json(user);
 
       // const payload = {
       //   user: {
