@@ -21,13 +21,13 @@ const POISchema = new mongoose.Schema({
     lat: {
       type: Number,
     },
-    lon: {
+    lng: {
       type: Number,
     },
   },
   arid: {
-    type: Number,
-    required: true,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'arelement',
   },
   grade: {
     type: Number,
@@ -36,6 +36,10 @@ const POISchema = new mongoose.Schema({
   gradecounter: {
     type: Number,
     required: true,
+  },
+  theme: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'theme',
   },
 });
 

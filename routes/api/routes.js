@@ -33,6 +33,20 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+// @route GET api/arelements/:theme/:arlevel
+// @desc  Create an AR element
+// @access Public
+
+router.get('/:id', async (req, res) => {
+  try {
+    const routes = await Route.find({ theme: req.params.id });
+    res.json(routes);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+});
+
 // @route POST api/auth
 // @desc  Create an AR element
 // @access Public

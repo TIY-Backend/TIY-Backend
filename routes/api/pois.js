@@ -3,6 +3,8 @@ const router = express.Router();
 const { check, validationResult } = require('express-validator');
 
 const POI = require('../../models/POI');
+const ARelement = require('../../models/ARelement');
+const Theme = require('../../models/Theme');
 
 // @route GET api/arelements
 // @desc  Create an AR element
@@ -10,8 +12,9 @@ const POI = require('../../models/POI');
 
 router.get('/', async (req, res) => {
   try {
-    const pois = await POI.find();
-
+    const pois = await POI.find()
+      .populate('theme', ['themeid', 'theme'])
+      .populate('arid', ['arid', 'url', 'level']);
     res.json(pois);
   } catch (err) {
     console.error(err.message);
@@ -25,7 +28,9 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   try {
-    const pois = await POI.find({ poiid: req.params.id });
+    const pois = await POI.find({ poiid: req.params.id })
+      .populate('theme', ['themeid', 'theme'])
+      .populate('arid', ['arid', 'url', 'level']);
     res.json(pois);
   } catch (err) {
     console.error(err.message);
@@ -52,7 +57,8 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { poiid, name, description, address, coordinates, arid } = req.body;
+    const { poiid, name, description, address, coordinates, arid, theme } =
+      req.body;
 
     try {
       let poi = await POI.findOne({ poiid });
@@ -63,15 +69,19 @@ router.post(
           .json({ errors: [{ msg: 'AR element already exists' }] });
       }
 
+      let ar = await ARelement.findOne({ arid: arid });
+      let theme1 = await Theme.findOne({ theme: theme });
+
       poi = new POI({
         poiid,
         name,
         description,
         address,
         coordinates,
-        arid,
+        arid: ar._id.valueOf(),
         grade: 0,
         gradecounter: 0,
+        theme: theme1._id.valueOf(),
       });
 
       await poi.save();
