@@ -9,10 +9,16 @@ const RouteSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  pois: {
-    type: [Number],
-    required: true,
-  },
+  // pois: {
+  //   type: [Number],
+  //   required: true,
+  // },
+  pois: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'poi',
+    },
+  ],
   evaluation_grade: {
     type: Number,
     required: true,
@@ -21,9 +27,9 @@ const RouteSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  themeid: {
-    type: Number,
-    required: true,
+  theme: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'theme',
   },
 });
 

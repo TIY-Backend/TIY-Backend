@@ -1,6 +1,11 @@
 const express = require('express');
+const mongoose = require('mongoose');
+const { Types } = mongoose;
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
+const POI = require('../../models/POI');
+const Theme = require('../../models/Theme');
+const ARelement = require('../../models/ARelement');
 
 const Route = require('../../models/Route');
 
@@ -10,7 +15,19 @@ const Route = require('../../models/Route');
 
 router.get('/', async (req, res) => {
   try {
-    const routes = await Route.find();
+    const routes = await Route.find()
+      .populate('theme', ['themeid', 'theme'])
+      .populate('pois', [
+        'poiid',
+        'name',
+        'description',
+        'address',
+        'coordinates',
+        'arid',
+        'grade',
+        'gradecounter',
+        'theme',
+      ]);
 
     res.json(routes);
   } catch (err) {
@@ -25,21 +42,20 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   try {
-    const routes = await Route.find({ routeid: req.params.id });
-    res.json(routes);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server error');
-  }
-});
+    const routes = await Route.find({ routeid: req.params.id })
+      .populate('theme', ['themeid', 'theme'])
+      .populate('pois', [
+        'poiid',
+        'name',
+        'description',
+        'address',
+        'coordinates',
+        'arid',
+        'grade',
+        'gradecounter',
+        'theme',
+      ]);
 
-// @route GET api/arelements/:theme/:arlevel
-// @desc  Create an AR element
-// @access Public
-
-router.get('/:id', async (req, res) => {
-  try {
-    const routes = await Route.find({ theme: req.params.id });
     res.json(routes);
   } catch (err) {
     console.error(err.message);
@@ -60,7 +76,7 @@ router.post(
     check('experience_level', 'Please include a experience level')
       .not()
       .isEmpty(),
-    check('themeid', 'Please add theme ID').not().isEmpty(),
+    check('theme', 'Please add theme ID').not().isEmpty(),
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -68,7 +84,7 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { routeid, description, pois, experience_level, themeid } = req.body;
+    const { routeid, description, pois, experience_level, theme } = req.body;
 
     try {
       let route = await Route.findOne({ routeid });
@@ -79,13 +95,22 @@ router.post(
           .json({ errors: [{ msg: 'Route already exists' }] });
       }
 
+      let theme1 = await Theme.findOne({ theme: theme });
+
+      let poiarray = [];
+      let newpoi = await POI.find({ poiid: { $in: pois } });
+      newpoi.forEach(function (poi) {
+        poiarray.push(poi._id.valueOf());
+      });
+      console.log(poiarray);
+
       route = new Route({
         routeid,
         description,
-        pois,
+        pois: poiarray,
         evaluation_grade: 0,
         experience_level,
-        themeid,
+        theme: theme1._id.valueOf(),
       });
 
       await route.save();
