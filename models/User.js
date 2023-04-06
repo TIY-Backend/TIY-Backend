@@ -19,7 +19,7 @@ const UserSchema = new mongoose.Schema({
   age: {
     type: Number,
   },
-  is_accessiable: {
+  is_accessible: {
     type: String,
   },
   coins: {
