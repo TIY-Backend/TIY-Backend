@@ -18,7 +18,7 @@ router.post(
     check(
       'password',
       'Please enter a password with 1 or more characters'
-    ).isLength({ min: 1 }),
+    ).isLength({ min: 3 }),
     check('age', 'Age is required').not().isEmpty(),
     check('is_accessible', 'Is_accessible is required').not().isEmpty(),
   ],
@@ -28,7 +28,7 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { fname, email, password, age, is_accessiable } = req.body;
+    const { fname, email, password, age, is_accessible } = req.body;
     try {
       let user = await User.findOne({ email });
 
@@ -49,7 +49,7 @@ router.post(
         email,
         password,
         age,
-        is_accessiable,
+        is_accessible,
         avatar,
         coins: 50,
       });
