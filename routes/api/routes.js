@@ -84,7 +84,8 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { routeid, description, pois, experience_level, theme } = req.body;
+    const { routeid, description, pois, experience_level, theme, imgurl } =
+      req.body;
 
     try {
       let route = await Route.findOne({ routeid });
@@ -102,7 +103,12 @@ router.post(
       newpoi.forEach(function (poi) {
         poiarray.push(poi._id.valueOf());
       });
-      console.log(poiarray);
+
+      let newimg = '';
+      if (imgurl == '') {
+        newimg =
+          'https://cdn.glitch.global/e974619b-5809-4dcb-bd75-55d296fd7ad8/default.jpeg?v=1681409747893';
+      } else newimg = imgurl;
 
       route = new Route({
         routeid,
@@ -111,6 +117,7 @@ router.post(
         evaluation_grade: 0,
         experience_level,
         theme: theme1._id.valueOf(),
+        imgurl: newimg,
       });
 
       await route.save();

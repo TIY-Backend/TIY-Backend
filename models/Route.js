@@ -9,10 +9,6 @@ const RouteSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  // pois: {
-  //   type: [Number],
-  //   required: true,
-  // },
   pois: [
     {
       type: mongoose.Schema.Types.ObjectId,
@@ -30,6 +26,10 @@ const RouteSchema = new mongoose.Schema({
   theme: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'theme',
+  },
+  imgurl: {
+    type: String,
+    required: true,
   },
 });
 
