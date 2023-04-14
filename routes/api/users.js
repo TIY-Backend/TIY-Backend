@@ -84,4 +84,24 @@ router.post(
   }
 );
 
+// @route GET api/arelements/:id
+// @desc  Create an AR element
+// @access Public
+
+router.put('/', async (req, res) => {
+  try {
+    const { fname, email, password, age, is_accessible } = req.body;
+    const salt = await bcrypt.genSalt(10);
+    const password1 = await bcrypt.hash(password, salt);
+    await User.updateOne(
+      { email: email },
+      { fname: fname, password: password1 }
+    );
+    res.json('User update done');
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+});
+
 module.exports = router;
