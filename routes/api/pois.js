@@ -80,6 +80,7 @@ router.post(
         coordinates,
         arid: ar._id.valueOf(),
         grade: 0,
+        gradesum: 0,
         gradecounter: 0,
         theme: theme1._id.valueOf(),
       });
@@ -93,5 +94,30 @@ router.post(
     }
   }
 );
+
+// @route GET api/arelements/:id
+// @desc  Create an AR element
+// @access Public
+
+router.put('/evaluate', async (req, res) => {
+  try {
+    const { poiid, newgrade } = req.body;
+    const poi = await POI.findOne({ poiid: poiid });
+    let newgradesum = poi.gradesum + newgrade;
+    let newgradecounter = poi.gradecounter + 1;
+    let grade = newgradesum / newgradecounter;
+    console.log(newgradesum);
+    console.log(newgradecounter);
+    console.log(poi);
+    await POI.updateOne(
+      { poiid: poiid },
+      { grade: grade, gradesum: newgradesum, gradecounter: newgradecounter }
+    );
+    res.json('POI update done');
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+});
 
 module.exports = router;

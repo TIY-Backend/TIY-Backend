@@ -33,6 +33,10 @@ const POISchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  gradesum: {
+    type: Number,
+    required: true,
+  },
   gradecounter: {
     type: Number,
     required: true,
