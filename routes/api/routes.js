@@ -168,4 +168,67 @@ router.delete('/', async (req, res) => {
   }
 });
 
+// @route GET api/arelements
+// @desc  Create an AR element
+// @access Public
+
+router.put('/', async (req, res) => {
+  try {
+    const {
+      routeid,
+      pois,
+      evaluation_grade,
+      description,
+      experience_level,
+      theme,
+      imgurl,
+    } = req.body;
+
+    const currentRoute = Route.findOne({ routeid: routeid });
+    let poiarray = [];
+    if (pois) {
+      let newpoi = await POI.find({ poiid: { $in: pois } });
+      newpoi.forEach(function (poi) {
+        poiarray.push(poi._id.valueOf());
+      });
+    }
+
+    let newtheme;
+    let theme1 = await Theme.findOne({ theme: theme });
+    if (theme1) {
+      newtheme = theme1._id.valueOf();
+    }
+
+    if (poiarray.length == 0) {
+      await Route.updateOne(
+        { routeid: routeid },
+        {
+          evaluation_grade: evaluation_grade || currentRoute.evaluation_grade,
+          description: description || currentRoute.description,
+          experience_level: experience_level || currentRoute.experience_level,
+          theme: newtheme || currentRoute.theme,
+          imgurl: imgurl || currentRoute.imgurl,
+        }
+      );
+    } else {
+      await Route.updateOne(
+        { routeid: routeid },
+        {
+          pois: poiarray || currentRoute.pois,
+          evaluation_grade: evaluation_grade || currentRoute.evaluation_grade,
+          description: description || currentRoute.description,
+          experience_level: experience_level || currentRoute.experience_level,
+          theme: newtheme || currentRoute.theme,
+          imgurl: imgurl || currentRoute.imgurl,
+        }
+      );
+    }
+
+    res.json('Route update done');
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+});
+
 module.exports = router;
