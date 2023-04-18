@@ -29,6 +29,17 @@ router.get('/', async (req, res) => {
         'theme',
       ]);
 
+    for (let i = 0; i < routes.length; i++) {
+      const pois = routes[i].pois;
+      const grades = pois.map((poi) => poi.grade);
+      const sum = grades.reduce(
+        (accumulator, currentValue) => accumulator + currentValue,
+        0
+      );
+      const mean = sum / grades.length;
+      routes[i].evaluation_grade = mean;
+    }
+
     res.json(routes);
   } catch (err) {
     console.error(err.message);
@@ -55,6 +66,17 @@ router.get('/:id', async (req, res) => {
         'gradecounter',
         'theme',
       ]);
+    const pois = routes[0].pois;
+    const grades = pois.map((poi) => poi.grade);
+    const sum = grades.reduce(
+      (accumulator, currentValue) => accumulator + currentValue,
+      0
+    );
+    const mean = sum / grades.length;
+    console.log(grades);
+    console.log(sum);
+    console.log(mean);
+    routes[0].evaluation_grade = mean;
 
     res.json(routes);
   } catch (err) {
@@ -129,5 +151,21 @@ router.post(
     }
   }
 );
+
+// @route GET api/arelements
+// @desc  Create an AR element
+// @access Public
+
+router.delete('/', async (req, res) => {
+  try {
+    const { routeid } = req.body;
+    const routes = await Route.findOneAndRemove({ routeid: routeid });
+
+    res.json('Route deleted');
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+});
 
 module.exports = router;
