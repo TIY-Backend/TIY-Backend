@@ -25,6 +25,7 @@ app.use('/api/arelements', require('./routes/api/arelements'));
 app.use('/api/pois', require('./routes/api/pois'));
 app.use('/api/themes', require('./routes/api/themes'));
 app.use('/api/routes', require('./routes/api/routes'));
+app.use('/api/tours', require('./routes/api/tours'));
 
 const PORT = process.env.PORT || 5000;
 
