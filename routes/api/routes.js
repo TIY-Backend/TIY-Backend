@@ -13,6 +13,21 @@ const Route = require('../../models/Route');
 // @desc  Create an AR element
 // @access Public
 
+router.get('/getnewid/', async (req, res) => {
+  try {
+    const routes = await Route.find().sort({ routeid: -1 }).limit(1);
+    newid = Number(routes[0].routeid);
+    res.json(newid + 1);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+});
+
+// @route GET api/arelements
+// @desc  Create an AR element
+// @access Public
+
 router.get('/', async (req, res) => {
   try {
     const routes = await Route.find()
@@ -106,8 +121,16 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { routeid, description, pois, experience_level, theme, imgurl } =
-      req.body;
+    const {
+      routeid,
+      description,
+      pois,
+      experience_level,
+      theme,
+      imgurl,
+      access,
+      email,
+    } = req.body;
 
     try {
       let route = await Route.findOne({ routeid });
@@ -140,6 +163,8 @@ router.post(
         experience_level,
         theme: theme1._id.valueOf(),
         imgurl: newimg,
+        access: access,
+        email: email,
       });
 
       await route.save();
