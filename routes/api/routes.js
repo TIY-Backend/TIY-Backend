@@ -88,9 +88,9 @@ router.get('/:id', async (req, res) => {
       0
     );
     const mean = sum / grades.length;
-    console.log(grades);
-    console.log(sum);
-    console.log(mean);
+    // console.log(grades);
+    // console.log(sum);
+    // console.log(mean);
     routes[0].evaluation_grade = mean;
 
     res.json(routes);
@@ -250,6 +250,44 @@ router.put('/', async (req, res) => {
     }
 
     res.json('Route update done');
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+});
+
+// @route GET api/arelements
+// @desc  Create an AR element
+// @access Public
+
+router.get('/users/:email', async (req, res) => {
+  try {
+    const routes = await Route.find({ email: req.params.email })
+      .populate('theme', ['themeid', 'theme'])
+      .populate('pois', [
+        'poiid',
+        'name',
+        'description',
+        'address',
+        'coordinates',
+        'arid',
+        'grade',
+        'gradecounter',
+        'theme',
+      ]);
+    const pois = routes[0].pois;
+    const grades = pois.map((poi) => poi.grade);
+    const sum = grades.reduce(
+      (accumulator, currentValue) => accumulator + currentValue,
+      0
+    );
+    const mean = sum / grades.length;
+    // console.log(grades);
+    // console.log(sum);
+    // console.log(mean);
+    routes[0].evaluation_grade = mean;
+
+    res.json(routes);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server error');
