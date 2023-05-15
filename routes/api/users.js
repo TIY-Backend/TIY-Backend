@@ -7,6 +7,20 @@ const jwt = require('jsonwebtoken');
 const config = require('config');
 const User = require('../../models/User');
 
+// @route GET api/users
+// @desc  Get all users
+// @access Public
+
+router.get('/', async (req, res) => {
+  try {
+    const users = await User.find();
+    res.json(users);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+});
+
 // @route POST api/users
 // @desc  Register User
 // @access Public
@@ -103,5 +117,70 @@ router.put('/', async (req, res) => {
     res.status(500).send('Server error');
   }
 });
+
+// @route POST api/users
+// @desc  Register User
+// @access Public
+router.post(
+  '/gmailauth',
+  [
+    check('name', 'Full name is required').not().isEmpty(),
+    check('email', 'Please include a valid email').isEmail(),
+    check('picture', 'picture is required').not().isEmpty(),
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    const { name, email, picture } = req.body;
+    try {
+      let user = await User.findOne({ email });
+      const passwordgmail = 'gmail123';
+
+      if (user) {
+        // console.log(user);
+      } else {
+        user = new User({
+          fname: name,
+          email: email,
+          password: passwordgmail,
+          age: 0,
+          is_accessible: 'false',
+          avatar: picture,
+          coins: 50,
+        });
+
+        const salt = await bcrypt.genSalt(10);
+
+        user.password = await bcrypt.hash(passwordgmail, salt);
+
+        await user.save();
+      }
+
+      // res.status(200).json(user);
+
+      const payload = {
+        user: {
+          id: user.id,
+        },
+      };
+
+      jwt.sign(
+        payload,
+        config.get('jwtSecret'),
+        { expiresIn: 360000 },
+        (err, token) => {
+          if (err) throw err;
+          res.json({ token });
+        }
+      );
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server error');
+    }
+  }
+);
 
 module.exports = router;
