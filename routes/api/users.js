@@ -139,6 +139,12 @@ router.post(
       let user = await User.findOne({ email });
       const passwordgmail = 'gmail123';
 
+      const avatar = gravatar.url(email, {
+        s: '200',
+        r: 'pg',
+        d: 'mm',
+      });
+
       if (user) {
         // console.log(user);
       } else {
@@ -148,7 +154,7 @@ router.post(
           password: passwordgmail,
           age: 0,
           is_accessible: 'false',
-          avatar: picture,
+          avatar,
           coins: 50,
         });
 
