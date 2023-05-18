@@ -275,17 +275,16 @@ router.get('/users/:email', async (req, res) => {
         'gradecounter',
         'theme',
       ]);
-    const pois = routes[0].pois;
-    const grades = pois.map((poi) => poi.grade);
-    const sum = grades.reduce(
-      (accumulator, currentValue) => accumulator + currentValue,
-      0
-    );
-    const mean = sum / grades.length;
-    // console.log(grades);
-    // console.log(sum);
-    // console.log(mean);
-    routes[0].evaluation_grade = mean;
+    for (let i = 0; i < routes.length; i++) {
+      const pois = routes[i].pois;
+      const grades = pois.map((poi) => poi.grade);
+      const sum = grades.reduce(
+        (accumulator, currentValue) => accumulator + currentValue,
+        0
+      );
+      const mean = sum / grades.length;
+      routes[i].evaluation_grade = mean;
+    }
 
     res.json(routes);
   } catch (err) {
