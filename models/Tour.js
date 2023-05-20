@@ -20,6 +20,12 @@ const TourSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  pois: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'poi',
+    },
+  ],
   duration: {
     type: String,
     required: true,
