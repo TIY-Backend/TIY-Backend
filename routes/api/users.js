@@ -189,4 +189,25 @@ router.post(
   }
 );
 
+// @route GET api/arelements
+// @desc  Create an AR element
+// @access Public
+
+router.delete('/', async (req, res) => {
+  try {
+    const { email } = req.body;
+    const user = await User.findOne({ email: email });
+    if (!user) {
+      return res.json('User doesn`t exist');
+    }
+
+    const users = await User.findOneAndRemove({ email: email });
+
+    res.json('User deleted');
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+});
+
 module.exports = router;

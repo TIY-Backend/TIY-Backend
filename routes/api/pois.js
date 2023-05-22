@@ -120,4 +120,25 @@ router.put('/evaluate', async (req, res) => {
   }
 });
 
+// @route GET api/arelements
+// @desc  Create an AR element
+// @access Public
+
+router.delete('/', async (req, res) => {
+  try {
+    const { poiid } = req.body;
+    const poi = await POI.findOne({ poiid: poiid });
+    if (!poi) {
+      return res.json('POI doesn`t exist');
+    }
+
+    const pois = await POI.findOneAndRemove({ poiid: poiid });
+
+    res.json('POI deleted');
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+});
+
 module.exports = router;
