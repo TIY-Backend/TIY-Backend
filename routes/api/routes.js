@@ -207,6 +207,8 @@ router.put('/', async (req, res) => {
       experience_level,
       theme,
       imgurl,
+      access,
+      email,
     } = req.body;
 
     const currentRoute = Route.findOne({ routeid: routeid });
@@ -233,6 +235,8 @@ router.put('/', async (req, res) => {
           experience_level: experience_level || currentRoute.experience_level,
           theme: newtheme || currentRoute.theme,
           imgurl: imgurl || currentRoute.imgurl,
+          access: access || currentRoute.accesss,
+          email: email || currentRoute.email,
         }
       );
     } else {
@@ -245,6 +249,8 @@ router.put('/', async (req, res) => {
           experience_level: experience_level || currentRoute.experience_level,
           theme: newtheme || currentRoute.theme,
           imgurl: imgurl || currentRoute.imgurl,
+          access: access || currentRoute.accesss,
+          email: email || currentRoute.email,
         }
       );
     }
