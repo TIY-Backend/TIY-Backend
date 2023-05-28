@@ -26,6 +26,7 @@ app.use('/api/pois', require('./routes/api/pois'));
 app.use('/api/themes', require('./routes/api/themes'));
 app.use('/api/routes', require('./routes/api/routes'));
 app.use('/api/tours', require('./routes/api/tours'));
+app.use('/api/grades', require('./routes/api/grades'));
 
 const PORT = process.env.PORT || 5000;
 
