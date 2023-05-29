@@ -84,7 +84,7 @@ router.post(
       let checkgrade = await Grade.findOne({ poiid: poi._id, user: user._id });
 
       if (checkgrade) {
-        return res.status(400).send('You already ranked this POI');
+        return res.status(401).send('You already ranked this POI');
       }
 
       let newgrade = new Grade({
