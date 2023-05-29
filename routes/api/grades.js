@@ -81,6 +81,12 @@ router.post(
       let poi = await POI.findOne({ poiid: poiid });
       let user = await User.findOne({ email: email });
 
+      let checkgrade = await Grade.findOne({ poiid: poi._id, user: user._id });
+
+      if (checkgrade) {
+        return res.status(400).send('You already ranked this POI');
+      }
+
       let newgrade = new Grade({
         poiid: poi._id.valueOf(),
         user: user._id.valueOf(),
@@ -89,7 +95,7 @@ router.post(
 
       await newgrade.save();
 
-      res.status(200).json(newgrade);
+      res.status(200).send('Ranked submitted');
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server error');
