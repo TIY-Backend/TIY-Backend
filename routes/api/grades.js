@@ -95,7 +95,7 @@ router.post(
 
       await newgrade.save();
 
-      res.status(200).send('Ranked submitted');
+      res.status(200).send('Rank Submitted');
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server error');
