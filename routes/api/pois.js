@@ -5,6 +5,7 @@ const { check, validationResult } = require('express-validator');
 const POI = require('../../models/POI');
 const ARelement = require('../../models/ARelement');
 const Theme = require('../../models/Theme');
+const Grade = require('../../models/Grade');
 
 // @route GET api/arelements
 // @desc  Create an AR element

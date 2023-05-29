@@ -76,13 +76,12 @@ router.post(
     }
 
     const { poiid, email, grade } = req.body;
+    const newGrade = parseInt(grade);
 
     try {
       let poi = await POI.findOne({ poiid: poiid });
       let user = await User.findOne({ email: email });
-
       let checkgrade = await Grade.findOne({ poiid: poi._id, user: user._id });
-
       if (checkgrade) {
         return res.status(400).send('You already ranked this POI');
       }
@@ -90,10 +89,24 @@ router.post(
       let newgrade = new Grade({
         poiid: poi._id.valueOf(),
         user: user._id.valueOf(),
-        grade: grade,
+        grade: newGrade,
       });
 
       await newgrade.save();
+
+      // update POI rank
+
+      const poi2 = await POI.findOne({ poiid: poiid });
+      let newgradesum = poi.gradesum + newGrade;
+      let newgradecounter = poi.gradecounter + 1;
+      let grade = newgradesum / newgradecounter;
+      console.log(newgradesum);
+      console.log(newgradecounter);
+      console.log(poi);
+      await POI.updateOne(
+        { poiid: poiid },
+        { grade: grade, gradesum: newgradesum, gradecounter: newgradecounter }
+      );
 
       res.status(200).send('Rank Submitted');
     } catch (err) {
