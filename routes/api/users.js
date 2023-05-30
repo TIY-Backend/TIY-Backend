@@ -154,7 +154,7 @@ router.post(
           password: passwordgmail,
           age: 0,
           is_accessible: 'false',
-          avatar,
+          avatar: picture,
           coins: 50,
         });
 
