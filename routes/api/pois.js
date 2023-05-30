@@ -142,4 +142,38 @@ router.delete('/', async (req, res) => {
   }
 });
 
+// @route GET api/arelements
+// @desc  Create an AR element
+// @access Public
+
+router.put('/', async (req, res) => {
+  try {
+    const { poiid, name, description, address, coordinates, theme } = req.body;
+
+    const currentPoi = POI.findOne({ poiid: poiid });
+
+    let newtheme;
+    let theme1 = await Theme.findOne({ theme: theme });
+    if (theme1) {
+      newtheme = theme1._id.valueOf();
+    }
+
+    await POI.updateOne(
+      { poiid: poiid },
+      {
+        name: name,
+        description: description,
+        address: address,
+        coordinates: coordinates,
+        theme: newtheme,
+      }
+    );
+
+    res.json('POI update done');
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+});
+
 module.exports = router;
