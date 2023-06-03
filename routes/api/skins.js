@@ -29,14 +29,14 @@ router.get('/:email', async (req, res) => {
     if (!skins) {
       skins = new Skin({
         email: req.params.email,
-        white: 'Unlocked',
-        blue: 'Locked',
-        yellow: 'Locked',
-        green: 'Locked',
-        gray: 'Locked',
-        pink: 'Locked',
-        purple: 'Locked',
-        orange: 'Locked',
+        white: { status: 'Unlocked', code: '#FFFFFF' },
+        blue: { status: 'Locked', code: '#AEE2FF' },
+        yellow: { status: 'Locked', code: '#F6FA70' },
+        green: { status: 'Locked', code: '#ADE792' },
+        gray: { status: 'Locked', code: '#DDDDDD' },
+        pink: { status: 'Locked', code: '#FFE1E1' },
+        purple: { status: 'Locked', code: '#E5D1FA' },
+        orange: { status: 'Locked', code: '#FFA559' },
       });
       await skins.save();
     }
