@@ -6,6 +6,10 @@ const SkinSchema = new mongoose.Schema({
     unique: true,
   },
   white: {
+    name: {
+      type: String,
+      required: true,
+    },
     status: {
       type: String,
       required: true,
@@ -13,6 +17,10 @@ const SkinSchema = new mongoose.Schema({
     code: { type: String, required: true },
   },
   blue: {
+    name: {
+      type: String,
+      required: true,
+    },
     status: {
       type: String,
       required: true,
@@ -20,6 +28,10 @@ const SkinSchema = new mongoose.Schema({
     code: { type: String, required: true },
   },
   yellow: {
+    name: {
+      type: String,
+      required: true,
+    },
     status: {
       type: String,
       required: true,
@@ -27,6 +39,10 @@ const SkinSchema = new mongoose.Schema({
     code: { type: String, required: true },
   },
   green: {
+    name: {
+      type: String,
+      required: true,
+    },
     status: {
       type: String,
       required: true,
@@ -34,6 +50,10 @@ const SkinSchema = new mongoose.Schema({
     code: { type: String, required: true },
   },
   gray: {
+    name: {
+      type: String,
+      required: true,
+    },
     status: {
       type: String,
       required: true,
@@ -41,6 +61,10 @@ const SkinSchema = new mongoose.Schema({
     code: { type: String, required: true },
   },
   pink: {
+    name: {
+      type: String,
+      required: true,
+    },
     status: {
       type: String,
       required: true,
@@ -48,6 +72,10 @@ const SkinSchema = new mongoose.Schema({
     code: { type: String, required: true },
   },
   purple: {
+    name: {
+      type: String,
+      required: true,
+    },
     status: {
       type: String,
       required: true,
@@ -55,6 +83,10 @@ const SkinSchema = new mongoose.Schema({
     code: { type: String, required: true },
   },
   orange: {
+    name: {
+      type: String,
+      required: true,
+    },
     status: {
       type: String,
       required: true,

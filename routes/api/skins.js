@@ -25,20 +25,23 @@ router.get('/', async (req, res) => {
 
 router.get('/:email', async (req, res) => {
   try {
-    let skins = await Skin.findOne({ email: req.params.email });
+    let skins = await Skin.findOne({ email: req.params.email }).select(
+      '-email'
+    );
     if (!skins) {
       skins = new Skin({
         email: req.params.email,
-        white: { status: 'Unlocked', code: '#FFFFFF' },
-        blue: { status: 'Locked', code: '#AEE2FF' },
-        yellow: { status: 'Locked', code: '#F6FA70' },
-        green: { status: 'Locked', code: '#ADE792' },
-        gray: { status: 'Locked', code: '#DDDDDD' },
-        pink: { status: 'Locked', code: '#FFE1E1' },
-        purple: { status: 'Locked', code: '#E5D1FA' },
-        orange: { status: 'Locked', code: '#FFA559' },
+        white: { name: 'white', status: 'Unlocked', code: '#FFFFFF' },
+        blue: { name: 'blue', status: 'Locked', code: '#AEE2FF' },
+        yellow: { name: 'yellow', status: 'Locked', code: '#F6FA70' },
+        green: { name: 'green', status: 'Locked', code: '#ADE792' },
+        gray: { name: 'gray', status: 'Locked', code: '#DDDDDD' },
+        pink: { name: 'pink', status: 'Locked', code: '#FFE1E1' },
+        purple: { name: 'purple', status: 'Locked', code: '#E5D1FA' },
+        orange: { name: 'orange', status: 'Locked', code: '#FFA559' },
       });
       await skins.save();
+      skins = await Skin.findOne({ email: req.params.email }).select('-email');
     }
 
     res.json(skins);
