@@ -210,4 +210,22 @@ router.delete('/', async (req, res) => {
   }
 });
 
+// @route GET api/arelements/:id
+// @desc  Create an AR element
+// @access Public
+
+router.put('/coins', async (req, res) => {
+  try {
+    const { email } = req.body;
+    const currentuser = await User.findOne({ email });
+    const coins = currentuser.coins + 10;
+
+    await User.updateOne({ email: email }, { coins: coins });
+    res.json('User coins update done');
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+});
+
 module.exports = router;
