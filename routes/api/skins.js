@@ -51,4 +51,22 @@ router.get('/:email', async (req, res) => {
   }
 });
 
+// @route GET api/arelements/:id
+// @desc  Create an AR element
+// @access Public
+
+router.put('/', async (req, res) => {
+  try {
+    const { email, color } = req.body;
+    let user = await Skin.findOne({ email: email });
+    user[color].status = 'Unlocked';
+
+    await user.save();
+    res.json('Skin Unlocked');
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+});
+
 module.exports = router;
