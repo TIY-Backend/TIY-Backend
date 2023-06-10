@@ -22,7 +22,17 @@ router.get('/', async (req, res) => {
       'gradecounter',
       'theme',
     ]);
-    res.json(tours);
+
+    const updatedRoutes = tours.map((tour) => {
+      if (tour.description == 'Private Route') {
+        tour.type = 'Producer';
+      } else {
+        tour.type = 'Consumer';
+      }
+      return tour;
+    });
+
+    res.json(updatedRoutes);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server error');

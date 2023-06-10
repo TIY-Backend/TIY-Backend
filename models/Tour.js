@@ -34,6 +34,9 @@ const TourSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  type: {
+    type: String,
+  },
 });
 
 module.exports = Tour = mongoose.model('tour', TourSchema);

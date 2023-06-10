@@ -67,7 +67,7 @@ router.post(
       if (poi) {
         return res
           .status(400)
-          .json({ errors: [{ msg: 'AR element already exists' }] });
+          .json({ errors: [{ msg: 'POI element already exists' }] });
       }
 
       let ar = await ARelement.findOne({ arid: arid });

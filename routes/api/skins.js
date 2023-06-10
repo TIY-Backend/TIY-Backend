@@ -3,6 +3,7 @@ const router = express.Router();
 const { check, validationResult } = require('express-validator');
 
 const Skin = require('../../models/Skin');
+const User = require('../../models/User');
 
 // @route GET api/arelements
 // @desc  Create an AR element
@@ -58,10 +59,16 @@ router.get('/:email', async (req, res) => {
 router.put('/', async (req, res) => {
   try {
     const { email, color } = req.body;
-    let user = await Skin.findOne({ email: email });
+    let skin = await Skin.findOne({ email: email });
     user[color].status = 'Unlocked';
 
+    await skin.save();
+
+    let user = await User.findOne({ email: email });
+    current = user.coins;
+    user.coins = current - 50;
     await user.save();
+
     res.json('Skin Unlocked');
   } catch (err) {
     console.error(err.message);
