@@ -60,7 +60,7 @@ router.put('/', async (req, res) => {
   try {
     const { email, color } = req.body;
     let skin = await Skin.findOne({ email: email });
-    user[color].status = 'Unlocked';
+    skin[color].status = 'Unlocked';
 
     await skin.save();
 
