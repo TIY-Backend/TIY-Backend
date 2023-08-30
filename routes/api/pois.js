@@ -7,9 +7,8 @@ const ARelement = require('../../models/ARelement');
 const Theme = require('../../models/Theme');
 const Grade = require('../../models/Grade');
 
-// @route GET api/arelements
-// @desc  Create an AR element
-// @access Public
+// @route GET api/pois
+// @desc  Get all POIs
 
 router.get('/', async (req, res) => {
   try {
@@ -23,9 +22,8 @@ router.get('/', async (req, res) => {
   }
 });
 
-// @route GET api/arelements/:id
-// @desc  Create an AR element
-// @access Public
+// @route GET api/pois/:id
+// @desc  Get POI by id
 
 router.get('/:id', async (req, res) => {
   try {
@@ -40,8 +38,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // @route POST api/auth
-// @desc  Create an AR element
-// @access Public
+// @desc  Create new POI
 
 router.post(
   '/',
@@ -96,9 +93,8 @@ router.post(
   }
 );
 
-// @route GET api/arelements/:id
-// @desc  Create an AR element
-// @access Public
+// @route GET api/pois/evaluate
+// @desc  update the evaluation of a POI
 
 router.put('/evaluate', async (req, res) => {
   try {
@@ -121,9 +117,8 @@ router.put('/evaluate', async (req, res) => {
   }
 });
 
-// @route GET api/arelements
-// @desc  Create an AR element
-// @access Public
+// @route GET api/pois
+// @desc  Delete POI
 
 router.delete('/', async (req, res) => {
   try {
@@ -142,9 +137,8 @@ router.delete('/', async (req, res) => {
   }
 });
 
-// @route GET api/arelements
-// @desc  Create an AR element
-// @access Public
+// @route GET api/pois
+// @desc  Update POI
 
 router.put('/', async (req, res) => {
   try {

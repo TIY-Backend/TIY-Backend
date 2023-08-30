@@ -5,8 +5,7 @@ const { check, validationResult } = require('express-validator');
 const ARelement = require('../../models/ARelement');
 
 // @route GET api/arelements
-// @desc  Create an AR element
-// @access Public
+// @desc  Get all AR elements
 
 router.get('/', async (req, res) => {
   try {
@@ -20,8 +19,7 @@ router.get('/', async (req, res) => {
 });
 
 // @route GET api/arelements/:id
-// @desc  Create an AR element
-// @access Public
+// @desc  Get AR element by id
 
 router.get('/:id', async (req, res) => {
   try {
@@ -35,7 +33,6 @@ router.get('/:id', async (req, res) => {
 
 // @route POST api/auth
 // @desc  Create an AR element
-// @access Public
 
 router.post(
   '/',

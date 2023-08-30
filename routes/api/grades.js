@@ -5,9 +5,8 @@ const Grade = require('../../models/Grade');
 const POI = require('../../models/POI');
 const User = require('../../models/User');
 
-// @route GET api/arelements
-// @desc  Create an AR element
-// @access Public
+// @route GET api/grades
+// @desc  Get all Grades
 
 router.get('/', async (req, res) => {
   try {
@@ -31,9 +30,8 @@ router.get('/', async (req, res) => {
   }
 });
 
-// @route GET api/arelements
-// @desc  Create an AR element
-// @access Public
+// @route GET api/grades
+// @desc  Get grades by poi
 
 router.get('/:id', async (req, res) => {
   try {
@@ -58,9 +56,8 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// @route POST api/auth
-// @desc  Create an AR element
-// @access Public
+// @route POST api/grades
+// @desc  Create new grade
 
 router.post(
   '/',
