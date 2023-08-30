@@ -7,9 +7,8 @@ const jwt = require('jsonwebtoken');
 const config = require('config');
 const User = require('../../models/User');
 
-// @route GET api/users
+// @route  api/users
 // @desc  Get all users
-// @access Public
 
 router.get('/', async (req, res) => {
   try {
@@ -23,7 +22,7 @@ router.get('/', async (req, res) => {
 
 // @route POST api/users
 // @desc  Register User
-// @access Public
+
 router.post(
   '/',
   [
@@ -98,9 +97,8 @@ router.post(
   }
 );
 
-// @route GET api/arelements/:id
-// @desc  Create an AR element
-// @access Public
+// @route  api/users
+// @desc  Update user
 
 router.put('/', async (req, res) => {
   try {
@@ -118,9 +116,9 @@ router.put('/', async (req, res) => {
   }
 });
 
-// @route POST api/users
-// @desc  Register User
-// @access Public
+// @route POST api/users/gmailauth
+// @desc  Register User by Gmail
+
 router.post(
   '/gmailauth',
   [
@@ -189,9 +187,8 @@ router.post(
   }
 );
 
-// @route GET api/arelements
-// @desc  Create an AR element
-// @access Public
+// @route  api/users
+// @desc  Delete user
 
 router.delete('/', async (req, res) => {
   try {
@@ -210,9 +207,8 @@ router.delete('/', async (req, res) => {
   }
 });
 
-// @route GET api/arelements/:id
-// @desc  Create an AR element
-// @access Public
+// @route  api/users/coins
+// @desc  Update coins for user by email
 
 router.put('/coins', async (req, res) => {
   try {

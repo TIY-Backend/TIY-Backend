@@ -7,7 +7,7 @@ const ARelement = require('../../models/ARelement');
 const Theme = require('../../models/Theme');
 const Grade = require('../../models/Grade');
 
-// @route GET api/pois
+// @route  api/pois
 // @desc  Get all POIs
 
 router.get('/', async (req, res) => {
@@ -22,7 +22,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// @route GET api/pois/:id
+// @route  api/pois/:id
 // @desc  Get POI by id
 
 router.get('/:id', async (req, res) => {
@@ -93,7 +93,7 @@ router.post(
   }
 );
 
-// @route GET api/pois/evaluate
+// @route  api/pois/evaluate
 // @desc  update the evaluation of a POI
 
 router.put('/evaluate', async (req, res) => {
@@ -117,7 +117,7 @@ router.put('/evaluate', async (req, res) => {
   }
 });
 
-// @route GET api/pois
+// @route  api/pois
 // @desc  Delete POI
 
 router.delete('/', async (req, res) => {
@@ -137,7 +137,7 @@ router.delete('/', async (req, res) => {
   }
 });
 
-// @route GET api/pois
+// @route  api/pois
 // @desc  Update POI
 
 router.put('/', async (req, res) => {

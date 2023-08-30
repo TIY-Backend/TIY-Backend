@@ -4,9 +4,8 @@ const { check, validationResult } = require('express-validator');
 
 const Theme = require('../../models/Theme');
 
-// @route GET api/arelements
-// @desc  Create an AR element
-// @access Public
+// @route  api/themes
+// @desc  Get all themes
 
 router.get('/', async (req, res) => {
   try {
@@ -19,9 +18,8 @@ router.get('/', async (req, res) => {
   }
 });
 
-// @route GET api/arelements/:id
-// @desc  Create an AR element
-// @access Public
+// @route  api/themes/:id
+// @desc  Get theme by id
 
 router.get('/:id', async (req, res) => {
   try {
@@ -33,9 +31,8 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// @route POST api/auth
-// @desc  Create an AR element
-// @access Public
+// @route POST api/themes
+// @desc  Create new theme
 
 router.post(
   '/',

@@ -9,9 +9,8 @@ const ARelement = require('../../models/ARelement');
 
 const Route = require('../../models/Route');
 
-// @route GET api/arelements
-// @desc  Create an AR element
-// @access Public
+// @route  api/routes/getnewid
+// @desc  gets the last id number + 1 from database
 
 router.get('/getnewid/', async (req, res) => {
   try {
@@ -24,9 +23,8 @@ router.get('/getnewid/', async (req, res) => {
   }
 });
 
-// @route GET api/arelements
-// @desc  Create an AR element
-// @access Public
+// @route  api/routes
+// @desc  get all routes
 
 router.get('/', async (req, res) => {
   try {
@@ -62,9 +60,8 @@ router.get('/', async (req, res) => {
   }
 });
 
-// @route GET api/arelements/:id
-// @desc  Create an AR element
-// @access Public
+// @route api/routes/:id
+// @desc  Get route by id
 
 router.get('/:id', async (req, res) => {
   try {
@@ -100,9 +97,8 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// @route POST api/auth
-// @desc  Create an AR element
-// @access Public
+// @route POST api/routes
+// @desc  Create new route
 
 router.post(
   '/',
@@ -177,9 +173,8 @@ router.post(
   }
 );
 
-// @route GET api/arelements
-// @desc  Create an AR element
-// @access Public
+// @route  api/routes
+// @desc  Delete route
 
 router.delete('/', async (req, res) => {
   try {
@@ -193,9 +188,8 @@ router.delete('/', async (req, res) => {
   }
 });
 
-// @route GET api/arelements
-// @desc  Create an AR element
-// @access Public
+// @route  api/routes
+// @desc  Update Route
 
 router.put('/', async (req, res) => {
   try {
@@ -262,9 +256,8 @@ router.put('/', async (req, res) => {
   }
 });
 
-// @route GET api/arelements
-// @desc  Create an AR element
-// @access Public
+// @route  api/routes
+// @desc  Get routes by email
 
 router.get('/users/:email', async (req, res) => {
   try {

@@ -5,9 +5,8 @@ const POI = require('../../models/POI');
 
 const Tour = require('../../models/Tour');
 
-// @route GET api/arelements
-// @desc  Create an AR element
-// @access Public
+// @route  api/tours
+// @desc  Get all tours
 
 router.get('/', async (req, res) => {
   try {
@@ -39,9 +38,8 @@ router.get('/', async (req, res) => {
   }
 });
 
-// @route GET api/arelements
-// @desc  Create an AR element
-// @access Public
+// @route  api/tours/:email
+// @desc  get tours by email
 
 router.get('/:email', async (req, res) => {
   try {
@@ -66,9 +64,8 @@ router.get('/:email', async (req, res) => {
   }
 });
 
-// @route POST api/auth
-// @desc  Create an AR element
-// @access Public
+// @route POST api/tours
+// @desc  Create new tour
 
 router.post(
   '/',

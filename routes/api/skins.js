@@ -5,9 +5,8 @@ const { check, validationResult } = require('express-validator');
 const Skin = require('../../models/Skin');
 const User = require('../../models/User');
 
-// @route GET api/arelements
-// @desc  Create an AR element
-// @access Public
+// @route  api/skins
+// @desc  get all skins
 
 router.get('/', async (req, res) => {
   try {
@@ -20,9 +19,8 @@ router.get('/', async (req, res) => {
   }
 });
 
-// @route GET api/arelements/:id
-// @desc  Create an AR element
-// @access Public
+// @route  api/skins/:id
+// @desc  get skins by email
 
 router.get('/:email', async (req, res) => {
   try {
@@ -52,9 +50,8 @@ router.get('/:email', async (req, res) => {
   }
 });
 
-// @route GET api/arelements/:id
-// @desc  Create an AR element
-// @access Public
+// @route  api/skins
+// @desc  update skins by email and color
 
 router.put('/', async (req, res) => {
   try {

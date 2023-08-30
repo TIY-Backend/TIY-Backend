@@ -5,7 +5,7 @@ const Grade = require('../../models/Grade');
 const POI = require('../../models/POI');
 const User = require('../../models/User');
 
-// @route GET api/grades
+// @route  api/grades
 // @desc  Get all Grades
 
 router.get('/', async (req, res) => {
@@ -30,7 +30,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// @route GET api/grades
+// @route  api/grades
 // @desc  Get grades by poi
 
 router.get('/:id', async (req, res) => {

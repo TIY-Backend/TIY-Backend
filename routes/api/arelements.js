@@ -4,7 +4,7 @@ const { check, validationResult } = require('express-validator');
 
 const ARelement = require('../../models/ARelement');
 
-// @route GET api/arelements
+// @route  api/arelements
 // @desc  Get all AR elements
 
 router.get('/', async (req, res) => {
@@ -18,7 +18,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// @route GET api/arelements/:id
+// @route  api/arelements/:id
 // @desc  Get AR element by id
 
 router.get('/:id', async (req, res) => {
